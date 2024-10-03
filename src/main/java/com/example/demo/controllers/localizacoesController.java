@@ -61,4 +61,5 @@ public class localizacoesController {
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
 }
