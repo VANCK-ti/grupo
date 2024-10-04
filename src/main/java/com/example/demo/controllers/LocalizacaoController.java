@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clientes")
-public class localizacoesController {
+@RequestMapping("/localizacoes")
+public class LocalizacaoController {
 
     private LocalizacaoFacade localizacaoFacade;
 
     @Autowired
-    public localizacoesController(LocalizacaoFacade localizacoesFacade){
+    public LocalizacaoController(LocalizacaoFacade localizacoesFacade) {
         this.localizacaoFacade = localizacoesFacade;
     }
 
@@ -24,19 +24,22 @@ public class localizacoesController {
     public ResponseEntity<List<Localizacao>> findAll() {
         List<Localizacao> localizacoes = this.localizacaoFacade.findAll();
 
-        return new ResponseEntity<List<Localizacao>>(localizacoes, HttpStatus.OK);
+        return new ResponseEntity<>(localizacoes, HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<Localizacao> findById(@PathVariable int id) {
-        Localizacao empresa = this.localizacaoFacade.findById(id);
+        Localizacao localizacao = this.localizacaoFacade.findById(id);
 
-        return new ResponseEntity<Localizacao>(empresa, HttpStatus.OK);
+        if (localizacao == null)
+            return new ResponseEntity<Localizacao>(localizacao, HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<Localizacao>(localizacao, HttpStatus.OK);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Localizacao> save(@RequestBody Localizacao empresa) {
-        Localizacao localizacoesSaved = localizacaoFacade.save(empresa);
+    public ResponseEntity<Localizacao> save(@RequestBody Localizacao localizacao) {
+        Localizacao localizacoesSaved = localizacaoFacade.save(localizacao);
 
         return new ResponseEntity<Localizacao>(localizacoesSaved, HttpStatus.CREATED);
 

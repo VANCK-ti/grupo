@@ -17,7 +17,7 @@ public class LocalizacaoRepository implements ILocalizacaoInteface {
 
     @Override
     public List<Localizacao> findAll() {
-        String jpql = "SELECT e FROM localizacoes e";
+        String jpql = "SELECT e FROM Localizacao e";
 
         TypedQuery<Localizacao> query = entityManager.createQuery(jpql, Localizacao.class);
 
